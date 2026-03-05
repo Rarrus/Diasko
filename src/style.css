@@ -12,11 +12,9 @@ html {
 	margin: 0;
 	height: 100vh;
 }
-
 body {
 	width: 100vw;
 	display: flex;
-	margin: 0;
 	height: 100vh;
 	opacity: 1;
 }
@@ -40,6 +38,9 @@ button:hover {
 	opacity: 0;
 }
 
+.m-0 {
+	margin: 0;
+}
 .main_button {
 	border: 1px rgb(0 0 0) dashed;
 	background-color: black;
@@ -53,23 +54,27 @@ button:hover {
 	color: black;
 }
 
+/* Common black borders */
+.black-border {
+	border: 1px solid black;
+}
+
+/* Common red borders */
+.red-border {
+	border: 1px solid red;
+}
+
 /* Component: Addons sidebar */
 #addons {
 	flex-basis: 20%;
-	border: 1px solid black;
 	display: flex;
 	flex-direction: column;
 }
 
 /* Component: Focus section */
 #focus {
-	border: 1px solid black;
 	flex-basis: 10%;
 	display: flex;
-}
-
-#pomodoro {
-	border: 1px solid red;
 }
 
 #music {
@@ -78,7 +83,6 @@ button:hover {
 
 .focus_aside {
 	display: inline-block;
-	margin: 0;
 	width: 50%;
 	height: 100%;
 }
@@ -86,7 +90,6 @@ button:hover {
 /* Component: Task section */
 #task {
 	flex-basis: 80%;
-	border: 1px solid black;
 }
 
 .task_aside {
@@ -127,7 +130,6 @@ button:hover {
 
 /* Component: Menu footer */
 #menu {
-	border: 1px solid red;
 	flex-basis: 10%;
 }
 
@@ -138,8 +140,7 @@ button:hover {
 }
 
 /* Common panel styles */
-#editor_task,
-#help_panel {
+.panel {
 	background-color: white;
 	border-radius: 5px;
 	margin: 16px 16px 0;
@@ -148,7 +149,6 @@ button:hover {
 }
 
 #help_panel {
-	border: 1px solid red;
 	height: calc(85% - 20px);
 	display: block;
 	width: 30vw;

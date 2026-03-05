@@ -1,85 +1,90 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <link href="/src/style/style.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="/src/style.css" rel="stylesheet">
     <title>Diasko</title>
     <script defer src="/src/declare.ts" type="module"></script>
-    <script defer src="src/features/event.ts" type="module"></script>
+    <script defer src="/src/features/event.ts" type="module"></script>
     <script defer src="/src/features/setup.ts" type="module"></script>
 
 </head>
-<body>
-<aside id="addons">
-    <header id="focus">
-        <aside id="pomodoro"></aside>
-        <aside id="music"></aside>
-    </header>
-    <main id="task">
-        <header>
-            <ul id="list_task"></ul>
-            <input class="hide" id="input_add_task">
-            <button class="hide" id="add_task" onclick="
+
+<body class="m-0">
+    <aside id="addons" class="black-border">
+        <header id="focus" class="black-border">
+            <aside class="m-0 focus_aside red-border" id="pomodoro"></aside>
+            <aside class="m-0 focus_aside" id="music"></aside>
+        </header>
+        <main id="task" class="black-border">
+            <header>
+                <ul id="list_task"></ul>
+                <input class="hide" id="input_add_task">
+                <button class="hide" id="add_task" onclick="
              inputEvent();
             " type="button">Add task
-            </button>
+                </button>
+            </header>
+            <footer id="tree_task"></footer>
+        </main>
+        <footer id="menu" class="red-border">
+            <h1>Diasko</h1>
+        </footer>
+    </aside>
+    <main id="editor">
+        <header id="menu_editor">
+            <main id="menu_editor_list">
+                <h2>List project</h2>
+                <button id="switch_view_create" onclick="switchView('listProject', 'createProject')"
+                    type="button">Create
+                    Project
+                </button>
+            </main>
+            <main class="hide" id="menu_editor_create">
+                <h2>Create a project</h2>
+                <button id="switch_view_list" onclick="switchView('createProject', 'listProject')" type="button">List
+                    Project
+                </button>
+            </main>
+            <main class="hide" id="menu_editor_editor">
+                <aside>
+                    <h2 id="name_task"></h2>
+                    <h4 id="project_name"></h4>
+                </aside>
+
+                <button id="switch_view_list_editor" onclick="switchView('editorTask', 'listProject')"
+                    type="button">List
+                    Project
+                </button>
+            </main>
         </header>
-        <footer id="tree_task"></footer>
+        <main id="editor_panel">
+            <div class="hide panel" contenteditable="true" id="editor_task"></div>
+            <ul id="list_project"></ul>
+            <form class="hide" id="create_project" onsubmit="formCreateProject(event)">
+                <label for="project_name">
+                    Project name
+                    <input name="project_name" type="text" />
+                </label>
+                <button id="create_project_submit" type="submit">Create</button>
+            </form>
+        </main>
     </main>
-    <footer id="menu">
-        <h1>Diasko</h1>
-    </footer>
-</aside>
-<main id="editor">
-    <header id="menu_editor">
-        <main id="menu_editor_list">
-            <h2>List project</h2>
-            <button id="switch_view_create" onclick="switchView('listProject', 'createProject')" type="button">Create
-                Project
-            </button>
-        </main>
-        <main class="hide" id="menu_editor_create">
-            <h2>Create a project</h2>
-            <button id="switch_view_list" onclick="switchView('createProject', 'listProject')" type="button">List
-                Project
-            </button>
-        </main>
-        <main class="hide" id="menu_editor_editor">
-            <aside>
-                <h2 id="name_task"></h2>
-                <h4 id="project_name"></h4>
-            </aside>
+    <aside id="help">
+        <header id="help_menu">
+            <nav>
+                <ul>
+                    <li>
+                        <button onclick="" type="button">Draft</button>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <blockquote class="red-border panel" contenteditable id="help_panel" oninput="saveDraft(this.innerHTML)"></blockquote>
 
-            <button id="switch_view_list_editor" onclick="switchView('editorTask', 'listProject')" type="button">List
-                Project
-            </button>
-        </main>
-    </header>
-    <main id="editor_panel">
-        <div class="hide" contenteditable="true" id="editor_task"></div>
-        <ul id="list_project"></ul>
-        <form class="hide" id="create_project" onsubmit="formCreateProject(event)">
-            <label for="project_name">
-                Project name
-                <input name="project_name" type="text"/>
-            </label>
-            <button id="create_project_submit" type="submit">Create</button>
-        </form>
-    </main>
-</main>
-<aside id="help">
-    <header id="help_menu">
-        <nav>
-            <ul>
-                <li>
-                    <button onclick="" type="button">Draft</button>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <blockquote class="" contenteditable id="help_panel" oninput="saveDraft(this.innerHTML)"></blockquote>
-
-</aside>
+    </aside>
 </body>
+
 </html>
