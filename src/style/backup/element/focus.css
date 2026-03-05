@@ -1,0 +1,21 @@
+#pomodoro {
+    border: 1px solid red;
+}
+
+#music {
+    border: 1px solid blue;
+}
+
+#focus {
+    border: 1px solid black;
+    flex-basis: 10%;
+    display: flex;
+}
+
+.focus_aside {
+    display: inline-block;
+    margin: 0;
+    width: 50%;
+    height: 100%;
+}
+

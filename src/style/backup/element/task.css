@@ -1,0 +1,40 @@
+#task {
+    flex-basis: 80%;
+    border: 1px solid black;
+}
+
+.task_aside {
+    margin: 0;
+    height: calc(50% - 2px);
+    padding: 0;
+    display: block;
+}
+
+#list_task {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#list_task > button {
+    position: relative;
+    margin: auto;
+    height: 20px;
+}
+
+#list_task > ul {
+    height: calc(100% - 20px);
+    margin: 0;
+    list-style: none;
+    text-align: center;
+    padding: 0;
+}
+
+#list_task li button {
+    border: 1px double cornflowerblue;
+    border-radius: 5px;
+}
+
+#list_task li {
+    margin: 10px;
+}

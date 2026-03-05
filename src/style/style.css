@@ -1,0 +1,264 @@
+/* Consolidated CSS for Diasko - Merged from multiple files */
+/* Base styles */
+html {
+	background: #404040;
+	background: radial-gradient(
+		circle,
+		rgba(0, 0, 0, 1) 0%,
+		rgba(48, 48, 48, 1) 100%
+	);
+	color: white;
+	font-family: "fantasy", monospace;
+	margin: 0;
+	height: 100vh;
+}
+
+body {
+	width: 100vw;
+	display: flex;
+	margin: 0;
+	height: 100vh;
+	opacity: 1;
+}
+
+/* Tag styles */
+button {
+	cursor: pointer;
+	background-color: transparent;
+	border: none;
+	color: white;
+	border-bottom: 1px cornflowerblue solid;
+}
+
+button:hover {
+	border-bottom: 1px rosybrown solid;
+}
+
+/* Utility classes */
+.hide {
+	display: none;
+	opacity: 0;
+}
+
+.m-0 {
+	margin:0;
+
+.main_button {
+	border: 1px rgb(0 0 0) dashed;
+	background-color: black;
+	color: white;
+	border-radius: 3px;
+}
+
+.main_button:hover {
+	border: 1px black dashed;
+	background-color: white;
+	color: black;
+}
+
+/* Common black borders */
+#addons,
+#focus,
+#task {
+	border: 1px solid black;
+}
+
+/* Common red borders */
+#pomodoro,
+#menu,
+#help_panel {
+	border: 1px solid red;
+}
+
+/* Component: Addons sidebar */
+#addons {
+	flex-basis: 20%;
+	display: flex;
+	flex-direction: column;
+}
+
+/* Component: Focus section */
+#focus {
+	flex-basis: 10%;
+	display: flex;
+}
+
+#music {
+	border: 1px solid blue;
+}
+
+.focus_aside {
+	display: inline-block;
+	margin: 0;
+	width: 50%;
+	height: 100%;
+}
+
+/* Component: Task section */
+#task {
+	flex-basis: 80%;
+}
+
+.task_aside {
+	margin: 0;
+	height: calc(50% - 2px);
+	padding: 0;
+	display: block;
+}
+
+#list_task {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#list_task > button {
+	position: relative;
+	margin: auto;
+	height: 20px;
+}
+
+#list_task > ul {
+	height: calc(100% - 20px);
+	margin: 0;
+	list-style: none;
+	text-align: center;
+	padding: 0;
+}
+
+#list_task li button {
+	border: 1px double cornflowerblue;
+	border-radius: 5px;
+}
+
+#list_task li {
+	margin: 10px;
+}
+
+/* Component: Menu footer */
+#menu {
+	flex-basis: 10%;
+}
+
+/* Component: Help sidebar */
+#help {
+	flex-basis: 40%;
+	border: 1px rosybrown solid;
+}
+
+/* Common panel styles */
+#editor_task,
+#help_panel {
+	background-color: white;
+	border-radius: 5px;
+	margin: 16px 16px 0;
+	padding: 16px;
+	color: black;
+}
+
+#help_panel {
+	height: calc(85% - 20px);
+	display: block;
+	width: 30vw;
+	overflow: auto;
+}
+
+#help_menu {
+	border: 1px solid green;
+	height: 10%;
+	display: block;
+}
+
+/* Component: Editor main */
+#editor {
+	display: block;
+	overflow: auto;
+	width: 60vw;
+}
+
+#list_project {
+	height: 100%;
+}
+
+#list_project button {
+	max-width: 35vw;
+	overflow: auto;
+}
+
+#list_project ul {
+	max-height: 70vh;
+	overflow: auto;
+	padding: 1%;
+}
+
+#list_project li {
+	margin: 10px;
+	list-style: none;
+}
+
+#list_project li button:first-child {
+	font-size: 20px;
+	margin: 10px;
+}
+
+#list_project li button:last-child {
+	font-size: 10px;
+	margin: 10px;
+	border: none;
+	border-radius: 10px;
+}
+
+#list_project li button:last-child:hover {
+	color: rosybrown;
+}
+
+#menu_editor {
+	border-bottom: 1px red dashed;
+	padding: 1rem 1rem 0 1rem;
+	min-height: 10%;
+}
+
+#menu_editor h2 {
+	width: fit-content;
+	margin: 0 10px 10px 10px;
+	display: inline;
+}
+
+#menu_editor h4 {
+	font-size: 14px;
+	display: inline-block;
+}
+
+#menu_editor button {
+	float: right;
+	transform: translateY(5px);
+}
+
+#editor_task {
+	height: 80vh;
+}
+
+#create_project {
+	margin: 1rem;
+}
+
+#create_project button {
+	margin: auto;
+	display: block;
+	font-size: 20px;
+}
+
+#create_project label {
+	display: block;
+}
+
+#menu_editor_editor aside {
+	width: 30%;
+	display: inline-block;
+	flex-wrap: wrap;
+	margin: 0;
+}
+
+#menu_editor_editor aside > * {
+	margin: 0;
+}
