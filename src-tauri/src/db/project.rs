@@ -1,5 +1,4 @@
-use crate::db::task::{get_children_internal, root_task_internal};
-use crate::db::{DbState, Task};
+use crate::db::{task::go_to, DbState, Task};
 use rusqlite::{params, Result as SqliteResult};
 use tauri::State;
 
@@ -92,10 +91,5 @@ pub fn go_to_project(db_state: State<DbState>, name: &str) -> Result<(Task, Vec<
     db.name_project = name.to_owned();
     db.name_link = format!("{}_link", name);
 
-    let task = root_task_internal(&db.conn, name)?;
-    db.task = task.clone();
-
-    let children = get_children_internal(&db.conn, name, task.id)?;
-
-    Ok((task, children))
+    go_to(db, 1)
 }

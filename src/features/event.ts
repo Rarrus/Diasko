@@ -1,8 +1,8 @@
 import { invoke } from "@tauri-apps/api/core";
-import type { Task } from "@/types.ts";
-import { createButtonListTask, createLiProject } from "../class/create.ts";
+import { createButton, createLiProject } from "../class/create.ts";
 import { element } from "../class/element.ts";
 import { switchView } from "./switchView.ts";
+import { load } from "./load.ts";
 
 async function formCreateProject(event: Event): Promise<void> {
 	event?.preventDefault();
@@ -23,21 +23,21 @@ async function formCreateProject(event: Event): Promise<void> {
 }
 
 async function inputEvent(): Promise<void> {
-  const input = element.inputAddTask;
-  console.log("a")
+	const input = element.inputAddTask;
 
-	if (input.value.length === 0) {
+	const name = input.value;
+	if (name.length === 0) {
 		throw new Error("Error name less 1 char");
 	}
-	const name = input.value;
 	const id = await invoke<number>("create_task", { name });
 
-  const { listTask } = element;
-	listTask.append(createButtonListTask(name, id));
+	element.listTask.append(createButton(name, () => load("task", { id })));
 }
 
 async function saveDraft(text: string): Promise<void> {
 	await invoke("save_draft", { text });
 }
+
+
 
 export { formCreateProject, inputEvent, saveDraft };

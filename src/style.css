@@ -1,30 +1,24 @@
-/* Consolidated CSS for Diasko - Merged from multiple files */
-/* Base styles */
-html {
-	background: #404040;
-	background: radial-gradient(
-		circle,
-		rgba(0, 0, 0, 1) 0%,
-		rgba(48, 48, 48, 1) 100%
-	);
+*{
 	color: white;
+}
+
+html {
+	background: rgb(5, 0, 0);
 	font-family: "fantasy", monospace;
-	margin: 0;
-	height: 100vh;
+	overflow:hidden;
 }
-body {
+
+body{
+	height: 100vh;
 	width: 100vw;
-	display: flex;
-	height: 100vh;
-	opacity: 1;
 }
+
 
 /* Tag styles */
 button {
 	cursor: pointer;
 	background-color: transparent;
 	border: none;
-	color: white;
 	border-bottom: 1px cornflowerblue solid;
 }
 
@@ -41,45 +35,18 @@ button:hover {
 .m-0 {
 	margin: 0;
 }
-.main_button {
-	border: 1px rgb(0 0 0) dashed;
-	background-color: black;
-	color: white;
-	border-radius: 3px;
-}
 
-.main_button:hover {
-	border: 1px black dashed;
-	background-color: white;
-	color: black;
-}
-
-/* Common black borders */
-.black-border {
-	border: 1px solid black;
-}
-
-/* Common red borders */
-.red-border {
-	border: 1px solid red;
-}
-
-/* Component: Addons sidebar */
 #addons {
-	flex-basis: 20%;
-	display: flex;
-	flex-direction: column;
+	width: 20vw;
+	display: inline-block;
 }
 
 /* Component: Focus section */
 #focus {
-	flex-basis: 10%;
+	height: 10vh;
 	display: flex;
 }
 
-#music {
-	border: 1px solid blue;
-}
 
 .focus_aside {
 	display: inline-block;
@@ -89,11 +56,10 @@ button:hover {
 
 /* Component: Task section */
 #task {
-	flex-basis: 80%;
+	height: 80vh;
 }
 
 .task_aside {
-	margin: 0;
 	height: calc(50% - 2px);
 	padding: 0;
 	display: block;
@@ -130,42 +96,51 @@ button:hover {
 
 /* Component: Menu footer */
 #menu {
-	flex-basis: 10%;
+	display: inline-block;
+	height: 10vh;
+	width: 100%;
 }
 
 /* Component: Help sidebar */
 #help {
-	flex-basis: 40%;
-	border: 1px rosybrown solid;
+	width: 35vw;
+	display: inline-block;
+	height: 100%;
+	position: absolute;
+	top:0%;
+	left: 60vw;
 }
 
 /* Common panel styles */
 .panel {
-	background-color: white;
-	border-radius: 5px;
-	margin: 16px 16px 0;
+	background-color: rgba(200, 200, 200, 0.05);
+	border: white dashed 1px;
 	padding: 16px;
-	color: black;
+}
+
+.panel > * {
+	padding-top: 3px;
 }
 
 #help_panel {
-	height: calc(85% - 20px);
+	height: calc(90vh - 56px);
 	display: block;
-	width: 30vw;
-	overflow: auto;
 }
 
 #help_menu {
-	border: 1px solid green;
-	height: 10%;
+	height: 10vh;
 	display: block;
 }
 
 /* Component: Editor main */
 #editor {
-	display: block;
-	overflow: auto;
-	width: 60vw;
+	display: inline-block;
+	height: 100vh;
+	width: 35vw;
+	margin:  0 2vw 0 2vw ;
+	position: absolute;
+	top:0%;
+	left: 20vw;
 }
 
 #list_project {
@@ -174,7 +149,6 @@ button:hover {
 
 #list_project button {
 	max-width: 35vw;
-	overflow: auto;
 }
 
 #list_project ul {
@@ -205,7 +179,6 @@ button:hover {
 }
 
 #menu_editor {
-	border-bottom: 1px red dashed;
 	padding: 1rem 1rem 0 1rem;
 	min-height: 10%;
 }
@@ -227,7 +200,7 @@ button:hover {
 }
 
 #editor_task {
-	height: 80vh;
+	height: calc(90vh - 56px);
 }
 
 #create_project {

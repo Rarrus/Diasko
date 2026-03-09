@@ -37,14 +37,14 @@ export function markdown(): void {
 		? (r.setStart(prev, pos - 2), r.setEnd(node, offset))
 		: (r.setStart(node, offset), r.setEnd(prev, pos));
 
-  const el = document.createElement(tag);
-  el.appendChild(r.extractContents());
-  
+	const el = document.createElement(tag);
+	el.appendChild(r.extractContents());
+
 	r.insertNode(el);
 
-  const first = el.firstChild as Text;
-  first.deleteData(first.data.length - 2, 2)
-  first.deleteData(0,2)
+	const first = el.firstChild as Text;
+	first.deleteData(first.data.length - 2, 2)
+	first.deleteData(0, 2)
 
 
 	const after = document.createTextNode("\u200B");

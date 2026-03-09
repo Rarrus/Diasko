@@ -1,31 +1,24 @@
 import { invoke } from "@tauri-apps/api/core";
-import {createButtonListTask } from "../class/create.ts";
+import { createButton } from "../class/create.ts";
 import { element } from "../class/element.ts";
 import type { Task } from "../types.ts";
 
 type Action = "task" | "project";
 type Args<K extends Action> = K extends "task"
-	? { id: number }
-	: { name: string };
+    ? { id: number }
+    : { name: string };
 
 export async function load<K extends Action>(
-	action: K,
-	args: Args<K>,
+    action: K,
+    args: Args<K>,
 ): Promise<void> {
-	const [task, listChildren] = await invoke<[Task, Task[]]>(
-		`go_to_${action}`,
-		args,
-	);
-	const { name, text } = task;
-	const { nameTask, listTask, editorTask } = element;
+    const [task, list] = await invoke<[Task, Task[]]>(
+        `go_to_${action}`,
+        args,
+    );
+    const tag = [element.nameTask, element.editorTask, element.listTask];
+    const stringText = [task.name, task.text, ""];
 
-	nameTask.textContent = `Task : ${name}`;
-  listTask.innerText = "";
-  editorTask.innerHTML = text;
-
-  for (const child of listChildren) {
-    const nameChild = child.name
-		const { id } = child;
-		listTask.append(createButtonListTask(nameChild, id));
-	}
+    tag.forEach((value, index) => value.textContent = stringText[index])
+    list.forEach((value) => createButton(value.name, () => load("task", { id: value.id })));
 }

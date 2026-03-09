@@ -2,23 +2,16 @@ import { element } from "../class/element.ts";
 
 
 const viewsEditor = {
-	editorTask: ["menuEditorEditor", "editorTask", "addTask", "inputAddTask"],
-	listProject: ["menuEditorList", "listProject"],
-	createProject: ["menuEditorCreate", "createProject"],
+	editorTask: [element.menuEditorEditor, element.editorTask, element.taskPanel],
+	listProject: [element.menuEditorList, element.listProject],
+	createProject: [element.menuEditorCreate, element.createProject],
 } as const;
 
-function toggleVisibility(
-	keys: (typeof viewsEditor)[Keys],
-	hide: boolean,
-): void {
-	for (const key of keys) {
-		element[key].classList.toggle("hide", hide);
-	}
-}
-
 function switchView(oldViews: Keys, newView: Keys): void {
-	toggleVisibility(viewsEditor[oldViews], true);
-	toggleVisibility(viewsEditor[newView], false);
+	const keys = [...viewsEditor[oldViews], ...viewsEditor[newView]]
+	for (const key of keys) {
+		key.classList.toggle("hide");
+	}
 }
 
 export type Keys = keyof typeof viewsEditor;

@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api/core";
-import { load } from "@/features/load.ts";
-import { switchView } from "@/features/switchView.ts";
+import { load } from "../features/load.ts";
+import { switchView } from "../features/switchView.ts";
 import type { Callback } from "../types.ts";
 import { element } from "./element.ts";
 
@@ -30,13 +30,5 @@ export function createButton(
 	button.textContent = text;
 	button.type = "button";
 	button.addEventListener("click", eventListener);
-	return button;
-}
-export function createButtonListTask(
-	name: string,
-	id: number,
-): HTMLButtonElement {
-	const button = createButton(name, () => load("task", { id }));
-	button.id = id.toString();
 	return button;
 }

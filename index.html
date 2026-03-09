@@ -12,15 +12,16 @@
 
 </head>
 
-<body class="m-0">
-    <aside id="addons" class="black-border">
+<body class="d-flex m-0">
+    <aside id="addons" class="black-border m-0">
         <header id="focus" class="black-border">
             <aside class="m-0 focus_aside red-border" id="pomodoro"></aside>
             <aside class="m-0 focus_aside" id="music"></aside>
         </header>
         <main id="task" class="black-border">
             <header>
-                <ul id="list_task"></ul>
+                <ul id="list_task">
+                </ul>
                 <input class="hide" id="input_add_task">
                 <button class="hide" id="add_task" onclick="
              inputEvent();
@@ -30,7 +31,7 @@
             <footer id="tree_task"></footer>
         </main>
         <footer id="menu" class="red-border">
-            <h1>Diasko</h1>
+            <h1 class="m-0">Diasko</h1>
         </footer>
     </aside>
     <main id="editor">
@@ -50,7 +51,7 @@
             </main>
             <main class="hide" id="menu_editor_editor">
                 <aside>
-                    <h2 id="name_task"></h2>
+                    <h2>Task : <span id="name_task"></span></h2>
                     <h4 id="project_name"></h4>
                 </aside>
 
@@ -82,7 +83,8 @@
                 </ul>
             </nav>
         </header>
-        <blockquote class="red-border panel" contenteditable id="help_panel" oninput="saveDraft(this.innerHTML)"></blockquote>
+        <blockquote class="panel m-0" contenteditable id="help_panel" oninput="saveDraft(this.innerHTML)">
+        </blockquote>
 
     </aside>
 </body>

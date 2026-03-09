@@ -1,4 +1,6 @@
-use crate::db::DbState;
+use std::sync::MutexGuard;
+
+use crate::db::{DbState, DB};
 use rusqlite::{params, Connection, Result as SqliteResult};
 use serde::{Deserialize, Serialize};
 use tauri::State;
@@ -23,7 +25,7 @@ impl Task {
         Ok(Task {
             id: row.get(0)?,
             name: row.get(1)?,
-            text: row.get(2)?,
+            text: row.get(2).unwrap_or_default(),
         })
     }
 }
@@ -43,7 +45,7 @@ pub(crate) fn get_children_internal(
     let link_table = format!("{}_link", project_name);
     let mut stmt = conn
         .prepare_cached(&format!(
-            "SELECT * FROM \"{}\" project JOIN \"{}\" link ON project.id = link.child_id \
+            "SELECT id, name FROM \"{}\" project JOIN \"{}\" link ON project.id = link.child_id \
 		WHERE link.parent_id = ?1",
             project_name, link_table
         ))
@@ -56,6 +58,25 @@ pub(crate) fn get_children_internal(
         .map_err(|e| e.to_string())?;
 
     Ok(tasks)
+}
+pub fn get_parent(
+    conn: &Connection,
+    project_name: &str,
+    id: &i32,
+    name_link: &str,
+) -> Result<Task, String> {
+    let task = conn
+        .query_row(
+            &format!(
+                "SELECT id, name FROM \"{project_name}\" t
+		JOIN \"{name_link}\" l ON t.id = l.parent_id WHERE l.child_id = ?1"
+            ),
+            params![id],
+            Task::from_row,
+        )
+        .map_err(|e| e.to_string())?;
+
+    Ok(task)
 }
 fn get_task_internal(conn: &Connection, project_name: &str, id: i32) -> Result<Task, String> {
     let mut stmt = conn
@@ -75,41 +96,6 @@ pub fn get_children(db: State<DbState>, id: i32) -> Result<Vec<Task>, String> {
     let conn = &db_lock.conn;
     let project_name = &db_lock.name_project;
     get_children_internal(conn, project_name, id)
-}
-
-#[tauri::command]
-pub fn get_parent(db: State<DbState>, project_name: &str, id: i32) -> Result<Task, String> {
-    let db = &db.lock().unwrap();
-    let task = db
-        .conn
-        .query_row(
-            &format!(
-                "SELECT * FROM \"{project_name}\" t
-		JOIN ?1 l ON t.id = l.parent_id WHERE l.child_id = ?2"
-            ),
-            params![db.name_link, id],
-            Task::from_row,
-        )
-        .map_err(|e| e.to_string())?;
-
-    Ok(task)
-}
-
-pub fn root_task_internal(conn: &Connection, name_project: &str) -> Result<Task, String> {
-    let task = conn
-        .query_row(
-            &format!("SELECT id, name, text FROM \"{name_project}\" WHERE id = 1"),
-            [],
-            Task::from_row,
-        )
-        .map_err(|e| e.to_string())?;
-    Ok(task)
-}
-
-#[tauri::command]
-pub fn root_task(db: State<DbState>, name: &str) -> Result<Task, String> {
-    let conn = &db.lock().unwrap().conn;
-    root_task_internal(conn, name)
 }
 
 #[tauri::command]
@@ -198,13 +184,15 @@ pub fn get_task(db: State<DbState>, project_name: &str, id: i32) -> Result<Task,
 
 #[tauri::command]
 pub fn go_to_task(db_state: State<DbState>, id: i32) -> Result<(Task, Vec<Task>), String> {
-    let mut db = db_state.lock().unwrap();
-    let project_name = db.name_project.clone();
+    let db = db_state.lock().unwrap();
+    go_to(db, id)
+}
 
-    let task = get_task_internal(&db.conn, &project_name, id)?;
-    let children = get_children_internal(&db.conn, &project_name, id)?;
-
+pub fn go_to(mut db: MutexGuard<'_, DB>, id: i32) -> Result<(Task, Vec<Task>), String> {
+    let task = get_task_internal(&db.conn, &db.name_project, id)?;
+    let mut children = get_children_internal(&db.conn, &db.name_project, task.id)?;
+    let parent = get_parent(&db.conn, &db.name_project, &id, &db.name_link).unwrap_or_default();
+    children.push(parent);
     db.task = task.clone();
-
     Ok((task, children))
 }
